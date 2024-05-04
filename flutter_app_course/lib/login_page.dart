@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/controllers/login_controller.dart';
 import 'package:flutter_app_course/product_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -143,13 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: Colors.blue, elevation: 5),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductPage(
-                              name: usernameController.text,
-                            ),
-                          ));
+                      context.read<LoginController>().processLogin(
+                          usernameController.text, passwordController.text);
                     } else {
                       showAlertError();
                     }
@@ -164,8 +161,17 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Text(
-                    'Hello, ${username ?? 'N/A'} dengan password sebagai berikut ${password ?? 'xxx'}')
+                context.watch<LoginController>().loginState == StateLogin.error
+                    ? Text(
+                        context.watch<LoginController>().messageError,
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )
+                    : Text(
+                        'Hello, ${context.watch<LoginController>().username} dengan password sebagai berikut ${password ?? 'xxx'}'),
+                
               ],
             ),
           ),
