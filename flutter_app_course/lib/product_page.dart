@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/form_page.dart';
 
 class ProductPage extends StatelessWidget {
   String name;
@@ -9,6 +11,7 @@ class ProductPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
+          endDrawer: navDrawer(context),
           appBar: AppBar(
             leading: BackButton(
               onPressed: () => Navigator.pop(context),
@@ -56,6 +59,44 @@ class ProductPage extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+
+  Widget navDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          header(),
+          dataItem(context, Icon(Icons.home), 'Home', 'Halaman pertama dibuka'),
+          dataItem(context, Icon(Icons.book), 'Book', 'Halaman daftar buku')
+        ],
+      ),
+    );
+  }
+
+  Widget header() {
+    return UserAccountsDrawerHeader(
+      decoration: BoxDecoration(color: Colors.blue),
+      accountName: Text(name),
+      accountEmail: Text('$name@gmail.com'),
+      currentAccountPicture: ClipOval(
+        child: Image.network(
+            'https://marketplace.canva.com/EAFHfL_zPBk/1/0/1600w/canva-yellow-inspiration-modern-instagram-profile-picture-kpZhUIzCx_w.jpg'),
+      ),
+    );
+  }
+
+  Widget dataItem(BuildContext context, Icon icon, String valueTitle,
+      String valueSubtitle) {
+    return ListTile(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FormPage(),
+          )),
+      leading: icon,
+      title: Text(valueTitle),
+      subtitle: Text(valueSubtitle),
     );
   }
 }
