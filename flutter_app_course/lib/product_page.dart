@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_course/form_page.dart';
 
+import 'assets/constant_file.dart';
+
 class ProductPage extends StatelessWidget {
   String name;
   ProductPage({super.key, required this.name});
@@ -26,7 +28,7 @@ class ProductPage extends StatelessWidget {
               Container(
                 height: MediaQuery.sizeOf(context).height / 7,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: listProduct.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Card(
                     elevation: 2,
@@ -47,9 +49,9 @@ class ProductPage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Name Product'),
-                            Text('15.000'),
-                            Text('5 pcs')
+                            Text(listProduct[index].nameProduct),
+                            Text(listProduct[index].priceProduct.toString()),
+                            Text(listProduct[index].qtyProduct.toString())
                           ],
                         ),
                       ],
