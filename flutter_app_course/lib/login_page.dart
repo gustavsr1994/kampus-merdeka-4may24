@@ -140,27 +140,32 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, elevation: 5),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<LoginController>().processLogin(
-                          usernameController.text, passwordController.text);
-                    } else {
-                      showAlertError();
-                    }
-                  },
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'lib/assets/icons/gmail.svg',
-                      ),
-                      const Text("Login",
-                          style: TextStyle(fontSize: 18, color: Colors.white)),
-                    ],
-                  ),
-                ),
+                context.watch<LoginController>().loginState !=
+                        StateLogin.success
+                    ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue, elevation: 5),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<LoginController>().processRegister(
+                                usernameController.text,
+                                passwordController.text);
+                          } else {
+                            showAlertError();
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'lib/assets/icons/gmail.svg',
+                            ),
+                            const Text("Register",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
                 context.watch<LoginController>().loginState == StateLogin.error
                     ? Text(
                         context.watch<LoginController>().messageError,
@@ -169,9 +174,48 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
                       )
-                    : Text(
-                        'Hello, ${context.watch<LoginController>().username} dengan password sebagai berikut ${password ?? 'xxx'}'),
-                
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue, elevation: 5),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<LoginController>().processLogin(
+                                usernameController.text,
+                                passwordController.text);
+                          } else {
+                            showAlertError();
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'lib/assets/icons/gmail.svg',
+                            ),
+                            const Text("Login",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, elevation: 5),
+                  onPressed: () {
+                    context.read<LoginController>().processLoginGoogle();
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'lib/assets/icons/gmail.svg',
+                      ),
+                      const Text("Login with Gmail",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
