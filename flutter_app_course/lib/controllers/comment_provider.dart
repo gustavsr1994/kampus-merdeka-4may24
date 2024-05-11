@@ -38,22 +38,17 @@ class CommentProvider extends ChangeNotifier {
     BuildContext context,
   ) async {
     try {
-      var requestModel = FormData.fromMap({
-        'subject': subjectController.text,
-        'comment': commentController.text
-      });
-      var response = await Dio().post('http://10.0.2.2:8080/api/comment',
-          data: requestModel,
-          options: Options(contentType: 'multipart/form-data'));
-      var result = CommentResponseModel.fromJson(response.data);
-      if (result.data!.id != 0) {
-        Navigator.pop(context);
-        getComment();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Gagal insert"),
-        ));
-      }
+      var requestModel = {
+        "subject": subjectController.text,
+        "comment": commentController.text
+      };
+      await Dio().post(
+        'http://10.0.2.2:8080/api/comment',
+        data: requestModel,
+      );
+
+      Navigator.pop(context);
+      getComment();
     } catch (e) {
       messageError = e.toString();
     }
@@ -94,9 +89,7 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteComment(
-    BuildContext context, int id
-  ) async {
+  Future deleteComment(BuildContext context, int id) async {
     try {
       await Dio().delete('http://10.0.2.2:8080/api/comment/$id');
       getComment();
