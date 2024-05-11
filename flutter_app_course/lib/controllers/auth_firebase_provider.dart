@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFirebaseProvider extends ChangeNotifier {
   final formKeyLogin = GlobalKey<FormState>();
@@ -64,6 +65,33 @@ class AuthFirebaseProvider extends ChangeNotifier {
       }
     } else {
       showAlertError(context);
+    }
+
+    notifyListeners();
+  }
+
+  void loginWithGmail(BuildContext context) async {
+    try {
+      GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      User dataUser = userCredential.user!;
+      username = emailController.text;
+      uid = dataUser.uid;
+      loginState = StateLogin.success;
+    } on FirebaseAuthException catch (error) {
+      loginState = StateLogin.error;
+      messageError = error.message!;
+    } catch (e) {
+      loginState = StateLogin.error;
+      messageError = e.toString();
     }
 
     notifyListeners();

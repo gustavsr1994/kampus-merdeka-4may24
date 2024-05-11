@@ -92,7 +92,15 @@ class RegisterPage extends StatelessWidget {
               child: const Text("To Login Page",
                   style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            bodyMessage(context)
+            bodyMessage(context),
+            SizedBox(height: 10,),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue, elevation: 5),
+              onPressed: () => context.read<AuthFirebaseProvider>().loginWithGmail(context),
+              child: const Text("Login with Gmail",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+            ),
           ],
         ),
       ),
