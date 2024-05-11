@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app_course/controllers/comment_provider.dart';
+import 'package:flutter_app_course/edit_form_comment_page.dart';
 import 'package:flutter_app_course/form_comment_page.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +38,7 @@ class _CommentPageState extends State<CommentPage> {
           },
           child: Icon(Icons.add),
         ),
-        body: Container(
-          height: MediaQuery.sizeOf(context).height / 7,
-          child: bodyData(context, context.watch<CommentProvider>().state),
-        ));
+        body: bodyData(context, context.watch<CommentProvider>().state));
   }
 
   Widget bodyData(BuildContext context, CommentState state) {
@@ -48,7 +47,6 @@ class _CommentPageState extends State<CommentPage> {
         var dataResult = context.watch<CommentProvider>().listComment;
         return ListView.builder(
           itemCount: dataResult!.length,
-          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Card(
             elevation: 2,
             color: Colors.white,
@@ -65,12 +63,46 @@ class _CommentPageState extends State<CommentPage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(dataResult[index].subject ?? ''),
-                    Text(dataResult[index].comment ?? ''),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        dataResult[index].subject ?? '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(dataResult[index].comment ?? ''),
+                      Row(
+                        children: [
+                          InkWell(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditFormComment(
+                                      id: dataResult[index].id ?? 0,
+                                    ),
+                                  )),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.blue,
+                              )),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          InkWell(
+                              onTap: () => context
+                                  .read<CommentProvider>()
+                                  .deleteComment(
+                                      context, dataResult[index].id ?? 0),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ))
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
