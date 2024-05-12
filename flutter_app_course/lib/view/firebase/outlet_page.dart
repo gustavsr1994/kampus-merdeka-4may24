@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_course/main.dart';
 import 'package:flutter_app_course/view/firebase/detail_outlet_page.dart';
+import 'package:flutter_app_course/view/firebase/form_insert_outlet_page.dart';
 
 class OutletPage extends StatefulWidget {
   const OutletPage({super.key});
@@ -21,6 +22,14 @@ class _OutletPageState extends State<OutletPage> {
           'Daftar Outlet',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FormInsertOutletPage(),
+            )),
+        child: Icon(Icons.add),
       ),
       body: StreamBuilder(
           stream: _collection.snapshots(),
