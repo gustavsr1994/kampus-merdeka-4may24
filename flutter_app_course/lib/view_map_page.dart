@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ViewMapPage extends StatefulWidget {
@@ -9,6 +11,16 @@ class ViewMapPage extends StatefulWidget {
 }
 
 class _ViewMapPageState extends State<ViewMapPage> {
+  GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
+  LatLng? positionMe;
+  String namePlacemark = "";
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentPosition();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +31,36 @@ class _ViewMapPageState extends State<ViewMapPage> {
         ),
       ),
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-            target: LatLng(0.7187915531225515, 114.4563867206868), zoom: 15),
+        initialCameraPosition: CameraPosition(target: positionMe!, zoom: 15),
         markers: {
           Marker(
               markerId: MarkerId('loc_1'),
-              icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-              position: LatLng(0.7187915531225515, 114.4563867206868),
-              infoWindow: InfoWindow(title: 'Kpg Lubukluu'))
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueBlue),
+              position: positionMe!,
+              infoWindow: InfoWindow(title: namePlacemark)),
+          Marker(
+              markerId: MarkerId('loc_2'),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueRed),
+              position: LatLng(-6.183149922741347, 106.90945987610598),
+              infoWindow: InfoWindow(title: namePlacemark))
         },
       ),
     );
+  }
+
+  Future getCurrentPosition() async {
+    Position currentPosition = await _geolocatorPlatform.getCurrentPosition(
+        locationSettings: LocationSettings(
+      accuracy: LocationAccuracy.high,
+    ));
+    double lat = currentPosition.latitude;
+    double longi = currentPosition.longitude;
+    List<Placemark> placemark = await placemarkFromCoordinates(lat, longi);
+    setState(() {
+      positionMe = LatLng(currentPosition.latitude, currentPosition.longitude);
+      namePlacemark = placemark.last.name ?? '-';
+    });
   }
 }
