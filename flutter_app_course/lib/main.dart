@@ -9,6 +9,7 @@ import 'package:flutter_app_course/form_page.dart';
 import 'package:flutter_app_course/login_page.dart';
 import 'package:flutter_app_course/main_provider_page.dart';
 import 'package:flutter_app_course/product_page.dart';
+import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/register_page.dart';
 import 'package:provider/provider.dart';
 
@@ -17,16 +18,17 @@ import 'main_page.dart';
 
 void main() {
   initFirebase();
-  runApp(const ApplicationFirst());
 }
 
 Future initFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
 
+  runApp(const ApplicationFirst());
 }
+
 class ApplicationFirst extends StatelessWidget {
   const ApplicationFirst({super.key});
 
@@ -47,13 +49,15 @@ class ApplicationFirst extends StatelessWidget {
           create: (context) => AuthFirebaseProvider(),
         ),
       ],
-      child: MaterialApp(debugShowCheckedModeBanner: false, home: RegisterPage()
-          // home: LoginPage(),
-          // home: FormPage(),
-          // home: MainPage(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false, home: OutletPage(),
+        // home: RegisterPage()
+        // home: LoginPage(),
+        // home: FormPage(),
+        // home: MainPage(),
 
-          // home: MainProviderPage(),
-          ),
+        // home: MainProviderPage(),
+      ),
     );
   }
 }
