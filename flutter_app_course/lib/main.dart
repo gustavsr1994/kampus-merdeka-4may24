@@ -11,6 +11,7 @@ import 'package:flutter_app_course/main_provider_page.dart';
 import 'package:flutter_app_course/product_page.dart';
 import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/register_page.dart';
+import 'package:flutter_app_course/view_map_page.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -50,7 +51,9 @@ class ApplicationFirst extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, home: OutletPage(),
+        debugShowCheckedModeBanner: false, 
+        home: ViewMapPage(),
+        //home: OutletPage(),
         // home: RegisterPage()
         // home: LoginPage(),
         // home: FormPage(),
