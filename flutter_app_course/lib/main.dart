@@ -52,7 +52,7 @@ class ApplicationFirst extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false, 
-        home: ViewMapPage(),
+        home: OutletPage(),
         //home: OutletPage(),
         // home: RegisterPage()
         // home: LoginPage(),

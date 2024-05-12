@@ -11,6 +11,8 @@ class FormInsertOutletPage extends StatefulWidget {
 class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
   TextEditingController nameOutletController = TextEditingController();
   TextEditingController hourOpsController = TextEditingController();
+  TextEditingController latitudeController = TextEditingController();
+  TextEditingController longitudeController = TextEditingController();
   bool isCash = false;
   bool isCashless = false;
   bool isCard = false;
@@ -51,6 +53,36 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
           ),
           TextFormField(
               controller: hourOpsController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Tolong isi field ini';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))))),
+          const Text(
+            'Latitude',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          TextFormField(
+              controller: latitudeController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Tolong isi field ini';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))))),
+          const Text(
+            'Longitude',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          TextFormField(
+              controller: longitudeController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Tolong isi field ini';
@@ -115,7 +147,9 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
     await _collection.add({
       'name': nameOutletController.text,
       'hour_operation': hourOpsController.text,
-      'payment': {'card': isCard, 'cashless': isCashless, 'cash': isCash}
+      'payment': {'card': isCard, 'cashless': isCashless, 'cash': isCash},
+      'location': GeoPoint(double.parse(latitudeController.text),
+          double.parse(longitudeController.text))
     });
     Navigator.pop(context);
   }
