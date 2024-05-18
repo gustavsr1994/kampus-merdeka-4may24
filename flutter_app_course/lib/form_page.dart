@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/models/file_upload_response.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FormPage extends StatefulWidget {
@@ -12,7 +14,7 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   String? pathFiles;
-
+  String message = '';
   @override
   Widget build(BuildContext context) {
     var sizeWidth = MediaQuery.sizeOf(context).width;
@@ -22,14 +24,23 @@ class _FormPageState extends State<FormPage> {
       ),
       body: Column(
         children: [
-          Container(
-            height: sizeWidth,
-            width: sizeWidth / 2,
-            child: Image.file(File(pathFiles ?? '')),
-          ),
-          ElevatedButton(onPressed: () {
-            captureImage();
-          }, child: Text('Capture Image'))
+          message == ''
+              ? Container(
+                  height: sizeWidth,
+                  width: sizeWidth / 2,
+                  child: Image.file(File(pathFiles ?? '')),
+                )
+              : Text(message),
+          ElevatedButton(
+              onPressed: () {
+                captureImage();
+              },
+              child: Text('Capture Image')),
+          ElevatedButton(
+              onPressed: () {
+                uploadImage();
+              },
+              child: Text('Upload Image'))
         ],
       ),
     );
@@ -41,5 +52,26 @@ class _FormPageState extends State<FormPage> {
     setState(() {
       pathFiles = image!.path;
     });
+  }
+
+  Future uploadImage() async {
+    try {
+      var requestModel = FormData.fromMap(
+          {'photo': MultipartFile.fromFileSync(pathFiles ?? '')});
+      var response = await Dio().post(
+        'http://192.168.1.4:8080/api/upload',
+        data: requestModel,
+      );
+      FileUploadResponse result = FileUploadResponse.fromJson(response.data);
+
+      setState(() {
+        message = result.message ?? '';
+      });
+    } catch (e) {
+      setState(() {
+        message = e.toString();
+      });
+      print('Error Upload : $message');
+    }
   }
 }
