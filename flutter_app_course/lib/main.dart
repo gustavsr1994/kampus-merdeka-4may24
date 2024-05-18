@@ -9,6 +9,7 @@ import 'package:flutter_app_course/form_page.dart';
 import 'package:flutter_app_course/login_page.dart';
 import 'package:flutter_app_course/main_provider_page.dart';
 import 'package:flutter_app_course/product_page.dart';
+import 'package:flutter_app_course/utils/push_notification_service.dart';
 import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/register_page.dart';
 import 'package:flutter_app_course/view_map_page.dart';
@@ -26,6 +27,7 @@ Future initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await PushNotificationService().initialize();
 
   runApp(const ApplicationFirst());
 }
@@ -51,11 +53,11 @@ class ApplicationFirst extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, 
-        home: OutletPage(),
+        debugShowCheckedModeBanner: false,
+        // home: OutletPage(),
         //home: OutletPage(),
         // home: RegisterPage()
-        // home: LoginPage(),
+        home: LoginPage(),
         // home: FormPage(),
         // home: MainPage(),
 

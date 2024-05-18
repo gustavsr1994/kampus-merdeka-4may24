@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/utils/push_notification_service.dart';
 
 class LoginProvider extends ChangeNotifier {
+  PushNotificationService pushNotificationService = PushNotificationService();
   final formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -19,6 +21,7 @@ class LoginProvider extends ChangeNotifier {
         username = usernameController.text;
         phone = phoneController.text;
         loginState = StateLogin.success;
+        pushNotificationService.showNotification('Success', 'Congratulation. You have successfully for login');
       } else {
         messageError = 'Username dan password salah. Ulangi!!!';
         loginState = StateLogin.error;
