@@ -9,6 +9,7 @@ import 'package:flutter_app_course/form_page.dart';
 import 'package:flutter_app_course/login_page.dart';
 import 'package:flutter_app_course/main_provider_page.dart';
 import 'package:flutter_app_course/product_page.dart';
+import 'package:flutter_app_course/splash_screen.dart';
 import 'package:flutter_app_course/utils/push_notification_service.dart';
 import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/register_page.dart';
@@ -54,10 +55,11 @@ class ApplicationFirst extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+
         // home: OutletPage(),
         //home: OutletPage(),
         // home: RegisterPage()
-        home: LoginPage(),
+        home: SplashScreen(),
         // home: FormPage(),
         // home: MainPage(),
 
