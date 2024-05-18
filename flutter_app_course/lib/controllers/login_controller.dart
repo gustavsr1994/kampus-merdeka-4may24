@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/utils/push_notification_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends ChangeNotifier {
@@ -30,22 +31,23 @@ class LoginController extends ChangeNotifier {
   }
 
   void processLogin(String userName, String password) async {
-    loginState = StateLogin.loading;
-    notifyListeners();
-    try {
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: userName, password: password);
-      User user = userCredential.user!;
-      loginState = StateLogin.success;
-      _messageError = 'Hello ${user.uid}';
-      print(_messageError);
-    } on FirebaseAuthException catch (error) {
-      loginState = StateLogin.error;
-      _messageError = error.message!;
-    } catch (e) {
-      loginState = StateLogin.error;
-      _messageError = e.toString();
-    }
+    // loginState = StateLogin.loading;
+    // notifyListeners();
+    // try {
+    //   final UserCredential userCredential = await FirebaseAuth.instance
+    //       .signInWithEmailAndPassword(email: userName, password: password);
+    //   User user = userCredential.user!;
+    //   loginState = StateLogin.success;
+    //   _messageError = 'Hello ${user.uid}';
+    //   print(_messageError);
+    // } on FirebaseAuthException catch (error) {
+    //   loginState = StateLogin.error;
+    //   _messageError = error.message!;
+    // } catch (e) {
+    //   loginState = StateLogin.error;
+    //   _messageError = e.toString();
+    // }
+    PushNotificationService().showNotification('Success', 'Welcome to this App', {});
     notifyListeners();
   }
 

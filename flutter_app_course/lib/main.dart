@@ -5,18 +5,24 @@ import 'package:flutter_app_course/firebase_options.dart';
 import 'package:flutter_app_course/form_page.dart';
 import 'package:flutter_app_course/login_page.dart';
 import 'package:flutter_app_course/product_page.dart';
+import 'package:flutter_app_course/utils/push_notification_service.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  initFirebase();
+void main() async {
+  await initFirebase();
+  initNotif();
   runApp(const ApplicationFirst());
 }
 
 Future initFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+}
+
+Future initNotif() async {
+  await PushNotificationService().initialize();
 }
 
 class ApplicationFirst extends StatelessWidget {
