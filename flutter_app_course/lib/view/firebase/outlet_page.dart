@@ -4,10 +4,13 @@ import 'package:flutter_app_course/main.dart';
 import 'package:flutter_app_course/view/firebase/detail_outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/form_edit_outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/form_insert_outlet_page.dart';
+import 'package:flutter_app_course/view/firebase/login_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OutletPage extends StatefulWidget {
-  const OutletPage({super.key});
+  final String? uid;
+  const OutletPage({@required this.uid, super.key});
 
   @override
   State<OutletPage> createState() => _OutletPageState();
@@ -23,7 +26,7 @@ class _OutletPageState extends State<OutletPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Daftar Outlet',
+          'Welcome, ${widget.uid}. Daftar Outlet',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
         actions: [
@@ -33,7 +36,19 @@ class _OutletPageState extends State<OutletPage> {
                   isMaps = !isMaps;
                 });
               },
-              icon: Icon(isMaps ? Icons.list_alt : Icons.map_sharp))
+              icon: Icon(isMaps ? Icons.list_alt : Icons.map_sharp)),
+          IconButton(
+              onPressed: () async {
+                SharedPreferences _sharedPref =
+                    await SharedPreferences.getInstance();
+                await _sharedPref.remove('uid');
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ));
+              },
+              icon: Icon(Icons.exit_to_app))
         ],
       ),
       floatingActionButton: FloatingActionButton(

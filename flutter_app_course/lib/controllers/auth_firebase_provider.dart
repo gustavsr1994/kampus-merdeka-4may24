@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthFirebaseProvider extends ChangeNotifier {
+  late SharedPreferences _sharedPref;
   final formKeyLogin = GlobalKey<FormState>();
   final formKeyRegister = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
@@ -15,6 +18,7 @@ class AuthFirebaseProvider extends ChangeNotifier {
   bool obscurePassword = true;
 
   void processRegister(BuildContext context) async {
+    _sharedPref = await SharedPreferences.getInstance();
     if (formKeyRegister.currentState!.validate()) {
       try {
         UserCredential result = await FirebaseAuth.instance
@@ -23,7 +27,15 @@ class AuthFirebaseProvider extends ChangeNotifier {
         User dataUser = result.user!;
         username = emailController.text;
         uid = dataUser.uid;
+        await _sharedPref.setString('uid', uid);
         loginState = StateLogin.success;
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OutletPage(
+                uid: uid,
+              ),
+            ));
       } on FirebaseAuthException catch (error) {
         loginState = StateLogin.error;
         messageError = error.message!;
@@ -47,6 +59,7 @@ class AuthFirebaseProvider extends ChangeNotifier {
   }
 
   void processLogin(BuildContext context) async {
+    _sharedPref = await SharedPreferences.getInstance();
     if (formKeyLogin.currentState!.validate()) {
       try {
         UserCredential result = await FirebaseAuth.instance
@@ -55,7 +68,15 @@ class AuthFirebaseProvider extends ChangeNotifier {
         User dataUser = result.user!;
         username = emailController.text;
         uid = dataUser.uid;
+        await _sharedPref.setString('uid', uid);
         loginState = StateLogin.success;
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OutletPage(
+                uid: uid,
+              ),
+            ));
       } on FirebaseAuthException catch (error) {
         loginState = StateLogin.error;
         messageError = error.message!;
