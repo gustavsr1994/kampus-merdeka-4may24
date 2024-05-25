@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_course/common/style.dart';
 import 'package:provider/provider.dart';
 
+import '../common/widget/button_custom.dart';
 import '../controllers/weather_provider.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -25,6 +27,16 @@ class WeatherPage extends StatelessWidget {
                         icon: Icon(Icons.search))),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: ButtonCustom(
+                  () => context.read<WeatherProvider>().getWeather(), 'Search', blueColor),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: ButtonCustom(
+                  () => print('object'), 'Clear', greenColor),
+            ),
             bodyWeather(weatherProvider)
           ],
         ),
@@ -42,10 +54,8 @@ class WeatherPage extends StatelessWidget {
         return Center(
             child: Column(
           children: [
-            Text(
-              provider.dataWeather!.nameRegion,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
+            Text(provider.dataWeather!.nameRegion,
+                style: largeText(Colors.orange, fontWeight: true)),
             Image.network(provider.dataWeather!.iconCondition),
             Text(provider.dataWeather!.condition),
             SizedBox(
@@ -56,14 +66,23 @@ class WeatherPage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text('Temp (C)', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
-                    Text(provider.dataWeather!.temperatur.toString()),
+                    Text('Temp (C)',
+                        style: mediumText(blueColor, fontWeight: true)),
+                    Text(
+                      provider.dataWeather!.temperatur.toString(),
+                      style: smallText(Colors.black),
+                    ),
                   ],
                 ),
                 Column(
                   children: [
-                    Text('UV', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
-                    Text(provider.dataWeather!.uv.toString()),
+                    Text('UV', style: mediumText(greenColor, fontWeight: true)),
+                    Text(
+                      provider.dataWeather!.uv.toString(),
+                      style: smallText(
+                        Colors.black,
+                      ),
+                    ),
                   ],
                 ),
               ],
