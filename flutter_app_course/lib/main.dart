@@ -4,7 +4,9 @@ import 'package:flutter_app_course/controllers/auth_firebase_provider.dart';
 import 'package:flutter_app_course/controllers/comment_provider.dart';
 import 'package:flutter_app_course/controllers/login_provider.dart';
 import 'package:flutter_app_course/controllers/main_provider.dart';
+import 'package:flutter_app_course/controllers/weather_provider.dart';
 import 'package:flutter_app_course/utils/push_notification_service.dart';
+import 'package:flutter_app_course/view/weather_page.dart';
 import 'package:provider/provider.dart';
 
 import 'calculate_currency_page.dart';
@@ -43,19 +45,23 @@ class ApplicationFirst extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AuthFirebaseProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => WeatherProvider(),
+        )
       ],
       child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // home: OutletPage(),
-        //home: OutletPage(),
-        // home: RegisterPage()
+          debugShowCheckedModeBanner: false,
+          // home: OutletPage(),
+          //home: OutletPage(),
+          // home: RegisterPage()
 
-        home: CalculateCurrencyPage(),
-        // home: FormPage(),
-        // home: MainPage(),
+          // home: CalculateCurrencyPage(),
+          home: WeatherPage()
+          // home: FormPage(),
+          // home: MainPage(),
 
-        // home: MainProviderPage(),
-      ),
+          // home: MainProviderPage(),
+          ),
     );
   }
 }
