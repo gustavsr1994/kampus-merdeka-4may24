@@ -23,7 +23,7 @@ class _EditFormCommentState extends State<EditFormComment> {
     var commentProvider = context.watch<CommentProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Data Comment'),
+        title: const Text('Edit Data Comment'),
       ),
       body: Form(
         key: commentProvider.formKey,
@@ -59,8 +59,8 @@ class _EditFormCommentState extends State<EditFormComment> {
                   }
                   return null;
                 },
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))))),
             const SizedBox(
               height: 10,

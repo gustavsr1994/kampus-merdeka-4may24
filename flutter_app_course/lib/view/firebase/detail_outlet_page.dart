@@ -1,7 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DetailOutletPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class DetailOutletPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Outlet',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
@@ -28,7 +28,7 @@ class DetailOutletPage extends StatelessWidget {
           Card(
             child: listPayment(dataOutlet['payment']),
           ),
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.sizeOf(context).width,
             child: GoogleMap(

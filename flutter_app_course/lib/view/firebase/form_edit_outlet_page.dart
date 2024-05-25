@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -29,13 +31,13 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Form Update Outlet',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
           const Text(
             'Nama Outlet',
@@ -67,8 +69,8 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
                 }
                 return null;
               },
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))))),
           const SizedBox(
             height: 10,
@@ -84,7 +86,7 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
                 isCash = value!;
               });
             },
-            title: Text('Cash'),
+            title: const Text('Cash'),
           ),
           CheckboxListTile(
             value: isCashless,
@@ -93,7 +95,7 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
                 isCashless = value!;
               });
             },
-            title: Text('Cashless'),
+            title: const Text('Cashless'),
           ),
           CheckboxListTile(
             value: isCard,
@@ -102,9 +104,9 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
                 isCard = value!;
               });
             },
-            title: Text('Debit/Credit Card'),
+            title: const Text('Debit/Credit Card'),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           ElevatedButton(
@@ -120,9 +122,9 @@ class _FormEditOutletPageState extends State<FormEditOutletPage> {
   }
 
   Future processSubmit() async {
-    final CollectionReference _collection =
+    final CollectionReference collection =
         FirebaseFirestore.instance.collection('outlet');
-    await _collection.doc(widget.dataOutlet.id).update({
+    await collection.doc(widget.dataOutlet.id).update({
       'name': nameOutletController.text,
       'hour_operation': hourOpsController.text,
       'payment': {'card': isCard, 'cashless': isCashless, 'cash': isCash}

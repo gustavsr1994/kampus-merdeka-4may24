@@ -1,4 +1,6 @@
 
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_course/form_page.dart';
 
@@ -18,14 +20,12 @@ class ProductPage extends StatelessWidget {
             leading: BackButton(
               onPressed: () => Navigator.pop(context),
             ),
-            title: Text('Daftar Product'),
+            title: const Text('Daftar Product'),
           ),
           body: Column(
             children: [
-              Container(
-                child: Text('Hello, $name'),
-              ),
-              Container(
+              Text('Hello, $name'),
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height / 7,
                 child: ListView.builder(
                   itemCount: listProduct.length,
@@ -33,7 +33,7 @@ class ProductPage extends StatelessWidget {
                   itemBuilder: (context, index) => Card(
                     elevation: 2,
                     color: Colors.white,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         side: BorderSide(color: Colors.black)),
                     child: Row(
@@ -69,8 +69,8 @@ class ProductPage extends StatelessWidget {
       child: ListView(
         children: [
           header(),
-          dataItem(context, Icon(Icons.home), 'Home', 'Halaman pertama dibuka'),
-          dataItem(context, Icon(Icons.book), 'Book', 'Halaman daftar buku')
+          dataItem(context, const Icon(Icons.home), 'Home', 'Halaman pertama dibuka'),
+          dataItem(context, const Icon(Icons.book), 'Book', 'Halaman daftar buku')
         ],
       ),
     );
@@ -78,7 +78,7 @@ class ProductPage extends StatelessWidget {
 
   Widget header() {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(color: Colors.blue),
+      decoration: const BoxDecoration(color: Colors.blue),
       accountName: Text(name),
       accountEmail: Text('$name@gmail.com'),
       currentAccountPicture: ClipOval(
@@ -94,7 +94,7 @@ class ProductPage extends StatelessWidget {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FormPage(),
+            builder: (context) => const FormPage(),
           )),
       leading: icon,
       title: Text(valueTitle),

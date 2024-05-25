@@ -14,7 +14,7 @@ class _FormCommentPageState extends State<FormCommentPage> {
   Widget build(BuildContext context) {
     var commentProvider = context.watch<CommentProvider>();
     return Scaffold(
-      appBar: AppBar(title: Text('Insert Comment'),),
+      appBar: AppBar(title: const Text('Insert Comment'),),
       body: Form(
             key: commentProvider.formKey,
             child: ListView(
@@ -50,8 +50,8 @@ class _FormCommentPageState extends State<FormCommentPage> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))))),
                 const SizedBox(

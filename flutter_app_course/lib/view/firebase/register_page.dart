@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_course/view/firebase/login_page.dart';
 import 'package:provider/provider.dart';
 
@@ -86,14 +85,14 @@ class RegisterPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(),
+                      builder: (context) => const LoginPage(),
                     ));
               },
               child: const Text("To Login Page",
                   style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
             bodyMessage(context),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, elevation: 5),

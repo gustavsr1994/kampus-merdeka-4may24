@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -20,12 +22,12 @@ class _FormPageState extends State<FormPage> {
     var sizeWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form Image'),
+        title: const Text('Form Image'),
       ),
       body: Column(
         children: [
           message == ''
-              ? Container(
+              ? SizedBox(
                   height: sizeWidth,
                   width: sizeWidth / 2,
                   child: Image.file(File(pathFiles ?? '')),
@@ -35,12 +37,12 @@ class _FormPageState extends State<FormPage> {
               onPressed: () {
                 captureImage();
               },
-              child: Text('Capture Image')),
+              child: const Text('Capture Image')),
           ElevatedButton(
               onPressed: () {
                 uploadImage();
               },
-              child: Text('Upload Image'))
+              child: const Text('Upload Image'))
         ],
       ),
     );

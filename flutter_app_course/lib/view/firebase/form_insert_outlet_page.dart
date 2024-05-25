@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -21,13 +23,13 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Form Insert Outlet',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
           const Text(
             'Nama Outlet',
@@ -59,8 +61,8 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 }
                 return null;
               },
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))))),
           const Text(
             'Latitude',
@@ -74,8 +76,8 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 }
                 return null;
               },
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))))),
           const Text(
             'Longitude',
@@ -89,8 +91,8 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 }
                 return null;
               },
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))))),
           const SizedBox(
             height: 10,
@@ -106,7 +108,7 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 isCash = value!;
               });
             },
-            title: Text('Cash'),
+            title: const Text('Cash'),
           ),
           CheckboxListTile(
             value: isCashless,
@@ -115,7 +117,7 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 isCashless = value!;
               });
             },
-            title: Text('Cashless'),
+            title: const Text('Cashless'),
           ),
           CheckboxListTile(
             value: isCard,
@@ -124,9 +126,9 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
                 isCard = value!;
               });
             },
-            title: Text('Debit/Credit Card'),
+            title: const Text('Debit/Credit Card'),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           ElevatedButton(
@@ -142,9 +144,9 @@ class _FormInsertOutletPageState extends State<FormInsertOutletPage> {
   }
 
   Future processSubmit() async {
-    final CollectionReference _collection =
+    final CollectionReference collection =
         FirebaseFirestore.instance.collection('outlet');
-    await _collection.add({
+    await collection.add({
       'name': nameOutletController.text,
       'hour_operation': hourOpsController.text,
       'payment': {'card': isCard, 'cashless': isCashless, 'cash': isCash},

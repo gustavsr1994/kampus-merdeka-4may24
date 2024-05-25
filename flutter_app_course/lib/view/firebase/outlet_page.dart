@@ -1,6 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_course/main.dart';
 import 'package:flutter_app_course/view/firebase/detail_outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/form_edit_outlet_page.dart';
 import 'package:flutter_app_course/view/firebase/form_insert_outlet_page.dart';
@@ -27,7 +28,7 @@ class _OutletPageState extends State<OutletPage> {
       appBar: AppBar(
         title: Text(
           'Welcome, ${widget.uid}. Daftar Outlet',
-          style: TextStyle(color: Colors.blue, fontSize: 20),
+          style: const TextStyle(color: Colors.blue, fontSize: 20),
         ),
         actions: [
           IconButton(
@@ -39,25 +40,25 @@ class _OutletPageState extends State<OutletPage> {
               icon: Icon(isMaps ? Icons.list_alt : Icons.map_sharp)),
           IconButton(
               onPressed: () async {
-                SharedPreferences _sharedPref =
+                SharedPreferences sharedPref =
                     await SharedPreferences.getInstance();
-                await _sharedPref.remove('uid');
+                await sharedPref.remove('uid');
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(),
+                      builder: (context) => const LoginPage(),
                     ));
               },
-              icon: Icon(Icons.exit_to_app))
+              icon: const Icon(Icons.exit_to_app))
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FormInsertOutletPage(),
+              builder: (context) => const FormInsertOutletPage(),
             )),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: StreamBuilder(
           stream: _collection.snapshots(),
@@ -87,7 +88,7 @@ class _OutletPageState extends State<OutletPage> {
                   itemBuilder: (context, index) {
                     var dataOutlet = snapshot.data!.docs[index];
                     return Card(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
@@ -95,12 +96,12 @@ class _OutletPageState extends State<OutletPage> {
                           children: [
                             Text(
                               dataOutlet['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               dataOutlet['hour_operation'],
-                              style: TextStyle(fontSize: 17),
+                              style: const TextStyle(fontSize: 17),
                             ),
                             Row(
                               children: [
@@ -108,7 +109,7 @@ class _OutletPageState extends State<OutletPage> {
                                     onPressed: () async => await _collection
                                         .doc(dataOutlet.id)
                                         .delete(),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete,
                                       color: Colors.red,
                                     )),
@@ -121,7 +122,7 @@ class _OutletPageState extends State<OutletPage> {
                                           dataOutlet: dataOutlet,
                                         ),
                                       )),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.edit,
                                     color: Colors.blue,
                                   ),
@@ -135,7 +136,7 @@ class _OutletPageState extends State<OutletPage> {
                                             dataOutlet: dataOutlet,
                                           ),
                                         )),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.visibility,
                                       color: Colors.green,
                                     ))
@@ -149,7 +150,7 @@ class _OutletPageState extends State<OutletPage> {
                 );
               }
             } else {
-              return Center(
+              return const Center(
                 child: Text('No Data'),
               );
             }

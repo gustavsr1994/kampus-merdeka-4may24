@@ -11,7 +11,7 @@ class ViewMapPage extends StatefulWidget {
 }
 
 class _ViewMapPageState extends State<ViewMapPage> {
-  GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   LatLng? positionMe;
   String namePlacemark = "";
 
@@ -25,7 +25,7 @@ class _ViewMapPageState extends State<ViewMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'View Map',
           style: TextStyle(color: Colors.blue, fontSize: 20),
         ),
@@ -34,16 +34,16 @@ class _ViewMapPageState extends State<ViewMapPage> {
         initialCameraPosition: CameraPosition(target: positionMe!, zoom: 15),
         markers: {
           Marker(
-              markerId: MarkerId('loc_1'),
+              markerId: const MarkerId('loc_1'),
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueBlue),
               position: positionMe!,
               infoWindow: InfoWindow(title: namePlacemark)),
           Marker(
-              markerId: MarkerId('loc_2'),
+              markerId: const MarkerId('loc_2'),
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueRed),
-              position: LatLng(-6.183149922741347, 106.90945987610598),
+              position: const LatLng(-6.183149922741347, 106.90945987610598),
               infoWindow: InfoWindow(title: namePlacemark))
         },
       ),
@@ -52,7 +52,7 @@ class _ViewMapPageState extends State<ViewMapPage> {
 
   Future getCurrentPosition() async {
     Position currentPosition = await _geolocatorPlatform.getCurrentPosition(
-        locationSettings: LocationSettings(
+        locationSettings: const LocationSettings(
       accuracy: LocationAccuracy.high,
     ));
     double lat = currentPosition.latitude;

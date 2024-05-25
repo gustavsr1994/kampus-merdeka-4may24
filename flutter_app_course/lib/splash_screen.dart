@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_course/view/firebase/outlet_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,9 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> loadingData() async {
-    SharedPreferences _sharedPref = await SharedPreferences.getInstance();
-    var uid = _sharedPref.getString('uid');
-    Future.delayed(Duration(seconds: 3), () {
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    var uid = sharedPref.getString('uid');
+    Future.delayed(const Duration(seconds: 3), () {
       if (uid == null) {
         Navigator.pushReplacement(
             context,

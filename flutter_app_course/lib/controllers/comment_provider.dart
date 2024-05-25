@@ -1,10 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_course/models/comment_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_app_course/models/comment_request_model.dart';
 import 'package:flutter_app_course/models/comment_response_model.dart';
-
-import '../models/comment_request_update_model.dart';
 
 class CommentProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();

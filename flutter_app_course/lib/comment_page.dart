@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_course/controllers/comment_provider.dart';
 import 'package:flutter_app_course/edit_form_comment_page.dart';
 import 'package:flutter_app_course/form_comment_page.dart';
@@ -26,17 +25,17 @@ class _CommentPageState extends State<CommentPage> {
           leading: BackButton(
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text('Daftar Product'),
+          title: const Text('Daftar Product'),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FormCommentPage(),
+                  builder: (context) => const FormCommentPage(),
                 ));
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         body: bodyData(context, context.watch<CommentProvider>().state));
   }
@@ -50,7 +49,7 @@ class _CommentPageState extends State<CommentPage> {
           itemBuilder: (context, index) => Card(
             elevation: 2,
             color: Colors.white,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(color: Colors.black)),
             child: Row(
@@ -69,7 +68,7 @@ class _CommentPageState extends State<CommentPage> {
                     children: [
                       Text(
                         dataResult[index].subject ?? '',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Text(dataResult[index].comment ?? ''),
@@ -83,11 +82,11 @@ class _CommentPageState extends State<CommentPage> {
                                       id: dataResult[index].id ?? 0,
                                     ),
                                   )),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.edit,
                                 color: Colors.blue,
                               )),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           InkWell(
@@ -95,7 +94,7 @@ class _CommentPageState extends State<CommentPage> {
                                   .read<CommentProvider>()
                                   .deleteComment(
                                       context, dataResult[index].id ?? 0),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
                               ))
@@ -109,7 +108,7 @@ class _CommentPageState extends State<CommentPage> {
           ),
         );
       case CommentState.nodata:
-        return Center(
+        return const Center(
           child: Text('No Data Comment'),
         );
       case CommentState.error:
@@ -117,7 +116,7 @@ class _CommentPageState extends State<CommentPage> {
           child: Text(context.watch<CommentProvider>().messageError),
         );
       default:
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
     }
   }
 }
