@@ -23,7 +23,7 @@ Future initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await PushNotificationService().initialize();
+  await PushNotificationService().initializeAwesome();
 
   runApp(const ApplicationFirst());
 }
