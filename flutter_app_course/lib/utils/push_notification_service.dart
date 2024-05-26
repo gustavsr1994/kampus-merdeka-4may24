@@ -16,6 +16,7 @@ class PushNotificationService {
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
+//TODO: method untuk inisialisasi Push notification with local notification 
   Future initialize() async {
     var tokenFCM = await _firebaseMessaging.getToken();
     print('Token FCM : $tokenFCM');
@@ -34,6 +35,7 @@ class PushNotificationService {
     });
   }
 
+//TODO: method untuk inisialisasi Push notification with awesome notification
   Future initializeAwesome() async {
     var tokenFCM = await _firebaseMessaging.getToken();
     print('Token FCM : $tokenFCM');
@@ -53,20 +55,13 @@ class PushNotificationService {
     });
   }
 
-  static Future<void> initializeIsolateReceivePort() async {
-    receivePort = ReceivePort('Notification action port in main isolate')
-      ..listen((silentData) {});
-
-    // This initialization only happens on main isolate
-    IsolateNameServer.registerPortWithName(
-        receivePort!.sendPort, 'notification_action_port');
-  }
-
+//TODO: method untuk background service
   Future<void> _firebaseMessageBackground(RemoteMessage message) async {
     showNotification(
         message.notification!.title ?? '', message.notification!.body ?? '');
   }
 
+//TODO: method untuk menampilkan notification wtih local notification
   void showNotification(String title, String body) {
     var androidPlatformChannel = const AndroidNotificationDetails(
         'channel_id_1', 'channel_name',
@@ -75,6 +70,7 @@ class PushNotificationService {
     _localNotificationsPlugin.show(0, title, body, platformChannel);
   }
 
+//TODO: method untuk menampilkan notification wtih awesome notification and image
   void showNotificationPicture(String title, String body, String picture) {
     _awesomeNotification.createNotification(
         content: NotificationContent(
