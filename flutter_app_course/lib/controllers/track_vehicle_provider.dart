@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_course/common/constant.dart';
@@ -11,10 +12,16 @@ class TrackVehicleProvider extends ChangeNotifier {
     int index = 0;
 
     cron.schedule(Schedule.parse('*/1 * * * *'), () async {
-      print(listLocation[index]);
+      final CollectionReference collection =
+          FirebaseFirestore.instance.collection('tracking');
+      await collection.add({
+        'create_date': DateTime.now().toString(),
+        'location': GeoPoint(
+            listLocation[index].latitude, listLocation[index].longitude)
+      });
       index++;
     });
-    while (index > listLocation.length) {
+    while (index == listLocation.length) {
       cron.close();
       statusTrack = false;
     }
