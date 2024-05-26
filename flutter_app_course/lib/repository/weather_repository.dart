@@ -7,7 +7,7 @@ class WeatherRepository {
     WeatherEntity? weatherEntity;
     try {
       var response = await Dio().get(
-          'https://api.weatherapi.com/v1/current.json?q=$nameCity&key=xxxxxxxx');
+          'https://api.weatherapi.com/v1/current.json?q=$nameCity&key=0697f9f699194f308ff60753242505');
 
       if (response.statusCode == 200) {
         print('Success');
